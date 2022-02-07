@@ -55,25 +55,27 @@ nav a {
 
 /* MY CSS */
 
-nav ul {
-    /* position: flex; */
-    display: flex;
-    justify-content: space-between;
-}
-
 article img {
     float: left;
     margin-right: 20px;
 }
 
-
-/* article {
+.grid {
     display: grid;
+    grid-template-columns: 3fr 1fr;
 }
 
-aside {
-    display: grid;
-    gap: 20px;
+nav {
+    position: sticky;
 }
 
-*/
+nav ul {
+    display: flex;
+    justify-content: space-between;
+}
+
+.photos {
+    display: grid;
+    grid-gap: 1px;
+    grid-template-columns: 1fr 1fr;
+}
