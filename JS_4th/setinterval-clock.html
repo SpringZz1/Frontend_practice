@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        p {
+            font-family: sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <p class="clock"></p>
+    <p><button class="start">Start</button><button class="stop">Stop</button><button class="reset">Reset</button></p>
+
+    <script>
+        // 计算秒数
+        var secondCount = 0;
+        // 暂存函数操作
+        var stopWatch;
+        // 时钟显示位置
+        var displayPara = document.querySelector('.clock');
+
+        function displayTime() {
+            var hours = Math.floor(secondCount / 3600);
+            var minutes = Math.floor(secondCount % 3600 / 60);
+            var seconds = Math.floor(secondCount % 60);
+
+            var displayHours = (hours < 10) ? '0' + hours : hours;
+            var displayMinutes = (minutes < 10) ? '0' + minutes : minutes;
+            var displaySeconds = (seconds < 10) ? '0' + seconds : seconds;
+
+            displayPara.textContent = displayHours + ':' + displayMinutes + ':' + displaySeconds;
+            console.log(displaySeconds);
+            secondCount++;
+        }
+        // 绑定按钮
+        var startBtn = document.querySelector('.start');
+        var stopBtn = document.querySelector('.stop');
+        var resetBtn = document.querySelector('.reset');
+
+        // 按钮绑定事件
+        startBtn.addEventListener('click', () => {
+            stopWatch = setInterval(displayTime, 1000);
+            startBtn.disabled = true;
+        })
+
+        stopBtn.addEventListener('click', () => {
+            clearInterval(stopWatch);
+            startBtn.disabled = false;
+        })
+
+        resetBtn.addEventListener('click', () => {
+            stopWatch = clearInterval(stopWatch);
+            startBtn.disabled = false;
+            secondCount = 0;
+            displayTime();
+        })
+
+        displayTime();
+    </script>
+</body>
+
+</html>
