@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise all</title>
+</head>
+
+<body>
+    <script>
+        function fetchAndDecode(url, type) {
+            return fetch(url).then(response => {
+                if (!response.ok) {
+                    throw new Error(`Http error! status:${response.status}`);
+                } else {
+                    if (type === 'blob') {
+                        return response.blob();
+                    } else if (type === 'txt') {
+                        return response.text();
+                    }
+                }
+            }).catch(e => {
+                console.log('Here has been a problem with your fetch operation: ' + e.message);
+            }).finally(() => {
+                console.log(`fetch attempt ${url} finished`);
+            })
+        }
+
+        let coffee = fetchAndDecode('coffee.jpg', 'blob');
+        let tea = fetchAndDecode('tea.jpg', 'blob');
+        let desc = fetchAndDecode('description.txt', 'txt');
+
+
+        Promise.all([coffee, tea, desc]).then(values => {
+            console.log(values);
+            let objectURL1 = URL.createObjectURL(values[0]);
+            let objectURL2 = URL.createObjectURL(values[1]);
+            let descText = values[2];
+
+            // 图片绑定在页面上
+            let image1 = document.createElement('img');
+            let image2 = document.createElement('img');
+            image1.src = objectURL1;
+            image2.src = objectURL2;
+            document.body.appendChild(image1);
+            document.body.appendChild(image2);
+
+            // 文字绑定在页面上
+            let para = document.createElement('p');
+            para.textContent = descText;
+            document.body.appendChild(para);
+        })
+    </script>
+</body>
+
+</html>
