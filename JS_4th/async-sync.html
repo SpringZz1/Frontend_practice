@@ -6,25 +6,37 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-
-    <style>
-        p {
-            font-family: sans-serif;
-        }
-    </style>
 </head>
 
 <body>
-    <p class="clock"></p>
     <script>
-        function displayTime() {
-            let date = new Date();
-            let time = date.toLocaleTimeString();
-            document.querySelector('.clock').textContent = time;
+        // 传统Promise写法
+        // fetch('coffee.jpg')
+        //     .then(response => {
+        //         response.blob();
+        //     })
+        //     .then(myBlob => {
+        //         let objcetURL = URL.createObjectURL(myBlob);
+        //         let image = document.createElement('img');
+        //         image.src = objcetURL;
+        //         document.body.appendChild(image);
+        //     })
+        //     .catch(e => {
+        //         console.log('There has been a problem with your fetch operation: ' + e.messagae);
+        //     });
+
+        // async-await写法
+        async function myFetch() {
+            let response = await fetch('coffee.jpg');
+            return await response.blob();
         }
 
-        displayTime();
-        const createClock = setInterval(displayTime, 1000);
+        myFetch().then((blob) => {
+            let objectURL = URL.createObjectURL(blob);
+            let image = document.createElement('img');
+            image.src = objectURL;
+            document.body.appendChild(image);
+        });
     </script>
 </body>
 
