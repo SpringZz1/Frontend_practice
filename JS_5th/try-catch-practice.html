@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // function getMonthName(mo) {
+        //     mo = mo - 1;
+        //     var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul',
+        //         'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+        //     ];
+        //     if (months[mo]) {
+        //         return months[mo];
+        //     } else {
+        //         throw 'InvalidMonthNo';
+        //     }
+        // }
+
+        // try {
+        //     monthName = getMonthName(myMonth);
+        // } catch {
+        //     monthName = 'unknown';
+        //     console.log(e);
+        // }
+
+        // getMonthName(13);
+        function f() {
+            try {
+                throw 'bogus';
+            } catch (e) {
+                console.log('caught inner bogus');
+                throw e;
+            } finally {
+                return false;
+            }
+        }
+
+        try {
+            f();
+        } catch (e) {
+            console.log('caught outer bogus');
+        }
+    </script>
+</body>
+
+</html>
