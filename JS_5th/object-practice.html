@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // function Employee() {
+        //     this.name = '';
+        //     this.dept = 'general';
+        // }
+
+        // function WorkerBee() {
+        //     this.properts = [];
+        // }
+
+        // WorkerBee.prototype = new Employee;
+
+        // // 这样不会影响到amy的name的值，因为会现在本地寻找，本地name为空，则算找到，停下
+        // Employee.prototype, name = 'Unknown';
+
+        // var amy = new WorkerBee;
+
+        // console.log(amy.name);
+        // console.log(amy.dept);
+        // console.log(amy.properts);
+
+        // 想要在运行时修改对象的属性值， 并且能够被后代继承， 那么就不能在构造器中定义， 应该将该属性定义在该对象所关联的原型中
+        function Employee() {
+            this.dept = 'general';
+        }
+
+        Employee.prototype.name = '';
+
+        function WorkerBee() {
+            this.prototype = [];
+        }
+
+        // 继承
+        WorkerBee.prototype = new Employee;
+
+        var amy = new WorkerBee;
+
+        Employee.prototype.name = 'Unknown';
+
+        console.log(amy.name);
+    </script>
+</body>
+
+</html>
