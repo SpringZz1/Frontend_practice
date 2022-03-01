@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function Employee() {
+            this.name = '';
+            this.dept = 'general';
+        }
+
+        function WorkerBee() {
+            this.projects = [];
+        }
+        WorkerBee.prototype = new Employee;
+        var amy = new WorkerBee;
+
+        // console.log(amy.name);
+        // console.log(amy.dept);
+        // console.log(amy.projects);
+        Employee.prototype.name = 'Unknown';
+        // console.log(Employee.name);
+        // console.log(amy.name);
+
+        // 自制instanceOf函数
+        function instanceOf(object, constructor) {
+            while (object != null) {
+                if (object == constructor.prototype) {
+                    return true;
+                }
+                if (typeof object == 'xml') {
+                    return constructor.prototype == XML.prototype;
+                }
+                object = object.__prototype__;
+            }
+            return false;
+        }
+
+        // JS没有多重继承，只能在构造函数中调用多个构造函数构造多重继承的假象
+        function Hobbyist(hobby) {
+            this.hobby = hobby || 'scuba';
+        }
+
+        function Engineer(name, props, mach, hobby) {
+            this.base1 = WorkerBee;
+            this.base1(name, 'engineer', props);
+            this.base2 = Hobbyist;
+            this.base2(hobby);
+            this.mach = mach || '';
+        }
+        Engineer.prototype = new WorkerBee;
+        // 此时dennis具有name,dept, projects,machine,hobby等属性
+        var dennis = new Engineer('Don, Dennis', ['collabra'], 'hugo');
+        // 但是在Hobbysit中添加equipment属dennis无法继承
+        Hobbyist.prototype.equipment = ['mask', 'fins', 'regulator', 'bcd'];
+    </script>
+</body>
+
+</html>
