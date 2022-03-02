@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 最简单的构造函数
+        // function Person() {
+
+        // }
+        // // prototype才是函数才会有的属性
+        // Person.prototype.name = 'Kevin';
+        // var person1 = new Person();
+        // var person2 = new Person();
+        // console.log(person1.name); // logs Kevin
+        // console.log(person2.name); // logs Kevin
+
+        // 每一个对象(除了null)都具有一个属性__proto__指向它的对象原型
+        function Person() {
+
+        }
+        var person = new Person();
+        console.log(person.__proto__ === Person.prototype); // true
+
+        // 原型还有一个属性constructor指向构造函数(因为一个原型可能有很多个对象，因此指向构造函数)
+
+        function Person() {
+
+        }
+        var person = new Person();
+        console.log(Person === Person.prototype.constructor); // true
+
+        // 综上，可以得出
+        function Person() {
+
+        }
+        var person = new Person();
+
+        console.log(person.__proto__ = Person.prototype); // true
+        console.log(Person.prototype.constructor === Person); // true
+        // 顺便学习一个ES5的方法， 可以获得对象的原型
+        console.log(Object.getPrototypeOf(person) === Person.prototype); // true
+
+        // 当读取实例的属性没读到时，会向上查找原型的属性，如果还找不到，那就去找原型的原型，直到顶端
+        function Person() {
+
+        }
+        Person.prototype.name = 'Kevin';
+        var person = new Person();
+        person.name = 'Daisy';
+        console.log(person.name); // Daisy
+
+        delete person.name;
+
+        console.log(person.name); //Kevin
+
+        // 事实上原型的原型是Object，那么Object的原型是什么呢？
+        console.log(Object.prototype.__proto__ === null) // true
+
+        // 原型细节补充
+        function Person() {
+
+        }
+        var person = new Person();
+        // person实例中不存在constructor，所以回去原型中寻找，也就是Person.prototype，即Person.ptototype.constructor === Person
+        console.log(person.constructor === Person) // true
+
+        // __proto__: __proto__可以理解来自Object.getPrototype(obj)的返回
+
+        // 最后关于JS的继承，继承意味着复制操作，而JS默认不会复制对象的属性， 反而只是在两个对象之间添加了一个关联， 这样一个对象就能通过
+        // 委托访问到另一个对象的属性和函数， 所以与其叫做继承， 委托的说法更准确.
+    </script>
+</body>
+
+</html>
