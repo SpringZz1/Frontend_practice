@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // call()方法在使用一个指定的this值和若干个指定的参数值的前提下调用某个函数方法
+        var foo = {
+            value: 1
+        };
+
+        function bar() {
+            console.log(this.value);
+        }
+        // 1. call改变了this的指向， 指向了foo
+        // 2. bar函数执行了
+        bar.call(foo); // 输出1
+
+        // 模拟实现
+        var foo = {
+            value: 1,
+            bar: function() {
+                console.log(this.value);
+            }
+        };
+        // 下面这个方法模拟实现了call()功能，但是给foo创建了新属性，所以接下来要delete掉
+        foo.bar(); // 输出1
+
+        // call()还能给定参数执行函数e
+        var foo = {
+            value: 1
+        };
+
+        function bar(name, age) {
+            console.log(name);
+            console.log(age);
+            console.log(this.value);
+        }
+
+        bar.call(foo, 'Kevin', 18); // Kevin, 18, 1
+    </script>
+</body>
+
+</html>

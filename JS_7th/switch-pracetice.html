@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // with语句，with语句能够将代码域设定为特定的对象
+        // 例:
+        let qs = location.search.substring(1);
+        let hostname = location.hostname;
+        let url = location.href;
+        // 上述写法针对一个对象反复操作，不方便，使用with语句能够解决这个问题，with语句将代码域设置为location，可以少些一点代码
+        with(location) {
+            let qs = search.substringh(1);
+            let hostname = hostname;
+            let url = hred;
+        };
+        // 但是with语句在严格模式下并不起作用，会抛出错误
+
+        // swtich语句，swtich语句是从别的语句中学习过来的，但是在JS中也有自己特殊的地方
+        // 首先，switch语句允许使用所有的数据类型(在很多语句中，只允许使用数值)，在JS中可以使用字符串甚至对象，其次，条件的值也可以是变量或者表达式
+        // 例: 这个例子中就是用了字符串和表达式
+        switch ('hello world') {
+            case 'hello' + 'world':
+                console.log('Greedting was found');
+                break;
+            case 'goodBye':
+                console.log('Closing was found');
+                break;
+            default:
+                console.log('Unexcepted message was found');
+        }
+        // 同时，还可以使用表达式
+        let num = 25;
+        switch (true) {
+            case num < 0:
+                console.log('less than 0');
+                break;
+            case num > 0 && num <= 10:
+                console.log('Between 0 and 10');
+                break;
+            case num > 10 && num <= 20:
+                console.log('Between 10 and 20');
+                break;
+            default:
+                console.log('More than 20');
+        }
+        // 注意，switch语句在比较每个条件的值的时候使用的是全等操作符，因此不会进行强制类型转换，例如‘10’不会强转为10.
+    </script>
+</body>
+
+</html>
+
+</html>

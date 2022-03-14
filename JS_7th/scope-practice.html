@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // JS赋值时，必须确认是原始值还是引用值
+        // 原始值包括:null、undefinded、boolean、number、string、symbol，保存原始值的变量是按值访问的
+        // 引用值是保存在内存中的对象，与其他语言不同，JS不允许直接访问内存位置，因此不能直接操作内存空间，在操作对象时，实际上是操作对象的引用而不是对象本身.
+
+        // 原始值不能有属性，尽管给原始值赋予属性不会报错，例：
+        let name = 'Nicholas';
+        name.age = 27;
+        console.log(name.age); // undefine
+        // 只有引用值才能动态添加属性
+        // 注，原始类型的初始化可以只使用字面量形式，如果使用的是new关键字，则JS会创建一个Object类型的实例，但其行为类似原始值。
+        // 例:
+        let name1 = 'Nicholas';
+        let name2 = new String('Matt');
+        name1.age = 27;
+        name2.age = 26;
+        console.log(name1.age); // undefined
+        console.log(name2.age); //26
+        console.log(typeof name1); //string
+        console.log(typeof name2); //object
+
+        // 原始值和引用的复制值也不一样
+        // 原始值的复制值会创建一个副本、一个完全独立的的值
+        // 例: 下面的num2得到的是num1的副本，完全独立的值
+        let num1 = 5;
+        let num2 = num1;
+        //引用值的复制值则会指向同一个对象，因为引用值说白了就是指针
+        let obj1 = new Object();
+        let obj2 = obj1;
+        obj1.name = 'Nicholas';
+        console.log(obj2.name); // Nicholas，为什么能访问到呢？就是因为他们指向的是同一个对象，因此一个对象的改变会在另一个对象中表现出来
+
+        // 函数的形参都是按原始值的方式传入，如果使用引用传入则会导致外部值跟随变化
+        // 例:
+        function addten(num) {
+            num += 10;
+            return num;
+        }
+        // 如果是按照引入值传入形参，则会导致count变为20，这显然是我们不想看到的
+        let count = 20;
+        let result = addten(count);
+        console.log(count); //20
+        console.log(result); //30
+
+        // 接受对象作为参数的函数也是接受原始值传入形参
+        // 例:
+        function setName(obj) {
+            obj.name = 'Nicholas';
+        }
+        let person = new Object();
+        setName(person);
+        console.log(person.name); // Nicholas
+
+        // 上述例子会让觉得很迷惑，如果是按值传入为什么能在外部访问到obj.name导致产生了是不是按引入值传入的错觉，实际上并非如此
+        // 只是因为按值传入函数内部的时候obj和name都指向了同一个对象，这个对象存在于全局作用域的堆内存上
+        // 下面看这个例子
+        function setName(obj) {
+            obj.name = 'Nicholas';
+            let obj = new Object();
+            obj.name = 'Greg';
+        }
+        let person1 = new Object();
+        setName(person1);
+        console.log(person1); //Nicholas，如果是按引入值传入应该是Greg才对，这证明了是按原始值传入
+
+        // typeof对于原始值有效果，但是对于引用值没有啥用，引用值使用instanceOf来确认这个引用的源头是什么
+
+
+        // 变量声明，var、let、const
+        // ES6出来之前都是使用var，var存在提升的问题，提升会导致同一作用域的代码不考虑变量是否被声明，直接拿来使用
+        // 例:
+        var name = 'Jake';
+        // 等价于
+        name = 'Jake';
+        var name;
+        // 同时，这样不会报错，提前console.log会输出undefined，就是因为提升问题
+        console.log(name); // undefined
+        var name = 'Jake';
+
+        // let也有提升问题，但是let是块作用域的，就是在一对花括号下起作用，因此提升问题会由于暂时性死区原因，不会造成还没声明就使用的问题
+        console.log(name1); // 报错
+        let name1 = 'Jake';
+
+        // const也是块作用域的，同时const要求声明变量的时候必须初始化，话说const声明的变量能叫变量吗？叫常量会不会好一点？
+        // 但是，如果const声明一个对象，那么是可以增加这个const定义的对象的属性的
+        // 例:
+        const a = 1; // 必须初始化，否则报错
+        const obj = {};
+        obj = {}; //报错，不能给常量赋值，但是
+        obj.name = 'Jake';
+        console.log(obj.name); // 可以通过，因为给的是对象的键进行修改
+    </script>
+</body>
+
+</html>
